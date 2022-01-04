@@ -1,0 +1,31 @@
+class Solution {
+    public int solution(int n, int[][] computers) {
+        // 1로 이어져있으면 한 네트워크
+        // 1일때 dfs 탐방
+        // 자기 자신 자리는 1임
+        
+        boolean[] visited = new boolean[n];
+        int answer = 0;
+        for(int i=0; i<n; i++){ // 0 1 2
+            if(!visited[i]){
+                answer++;
+                dfs(computers, visited, i);
+            }
+        }
+        for(boolean v:visited){
+            System.out.println(v);
+        }
+        return answer;
+    }
+    
+    public void dfs(int[][] computers, boolean[] visited, int node){
+        visited[node] = true;
+        
+        for(int i=0; i<computers.length; i++){ // 0 1 2 / 0 1 2 / 0 1 2
+            if(node != i && !visited[i] && computers[node][i] == 1){// [0][0] [0][1] [0][2]/  [1][0] [1][1] [1][2]/
+                dfs(computers, visited, i); // 0 1 / 0 1 2 / 1 2
+                // 1번이 1이면 1번 목록에서 연결된 애 찾고 또 연결돼있으면 다음 연결 찾고
+            }
+        }
+    }
+}
