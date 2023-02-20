@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    // 오른, 아래, 오른아래대각선
+    // 오른, 아래, 오른아래대각선, 오른쪽위대각선
     static int[] dx = {1, 0, 1, -1};
     static int[] dy = {0, 1, 1, 1};
     static int[][] board;
@@ -47,18 +47,16 @@ public class Main {
                 int ny = j + dy[d]*len;
 
                 if(nx <= 0 || nx >= 20 || ny <= 0 || ny >= 20) {
-                    if(len == 5 && board[i-dx[d]][j-dy[d]] != board[i][j]) return true;
                     break;
                 }
                 if(board[i][j] != board[nx][ny]){
-                    if(len == 5 && board[i-dx[d]][j-dy[d]] != board[i][j]){
-                        return true;
-                    }
                     break;
                 }
                 len++;
             }
-
+            if(len == 5 && board[i-dx[d]][j-dy[d]] != board[i][j]){
+                return true;
+            }
         }
 
         return false;
