@@ -2,51 +2,40 @@ import java.util.*;
 
 class Solution {
     
-    List<String> wordList;
-    int answer;
     boolean[] used;
-    
+    int answer = 0;
     public int solution(String begin, String target, String[] words) {
         
-        wordList = Arrays.asList(words);
-        used = new boolean[wordList.size()];
+        used = new boolean[words.length];
         
-        if(!wordList.contains(target)) return 0;
-        
-        dfs(begin, target, begin, 0);
+        dfs(begin, target, 0, words);
         
         return answer;
     }
     
-    public void dfs(String begin, String target, String now, int idx){
+    public void dfs(String now, String target, int idx, String[] words){
         if(now.equals(target)){
             answer = idx;
             return;
-        }
-        List<String> candidates = possibleChange(now);
-        
-        for(String newstr : candidates){
-            int i = wordList.indexOf(newstr);
+        }        
+    
+        for(int i=0; i<words.length; i++){
+            if(used[i] || !possibleChange(now, words[i])) continue;
             used[i] = true;
-            dfs(begin, target, newstr, idx+1);
+            dfs(words[i], target, idx+1, words);
             used[i] = false;
         }
         
     }
     
-    public List<String> possibleChange(String str1){
-        List<String> answers = new ArrayList<>();
+    public boolean possibleChange(String str1, String str2){
+        int diff = 0;
         
-        for(String str2 : wordList){
-            if(used[wordList.indexOf(str2)]) continue;
-            int diff = 0;
-            for(int i=0; i<str1.length(); i++){
-                if(str1.charAt(i) != str2.charAt(i)) diff++;
-                if(diff > 1) break;
-            }
-            if(diff == 1) answers.add(str2);
+        for(int i=0; i<str1.length(); i++){
+            if(str1.charAt(i) != str2.charAt(i)) diff++;
         }
-       
-        return answers;
+        
+        if(diff > 1) return false;
+        return true;
     }
 }
