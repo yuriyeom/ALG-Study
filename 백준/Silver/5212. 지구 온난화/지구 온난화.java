@@ -1,6 +1,9 @@
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -28,7 +31,8 @@ public class Main {
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
                 if (map[i][j] == 1) {
-                    if (isDown(i, j) && !isLast(i, j)) {
+                    boolean isDown = isDown(i, j);
+                    if (isDown) {
                         check[i][j] = true;
                     }
                 }
@@ -68,17 +72,5 @@ public class Main {
 
         if(cnt >= 3) return true;
         return false;
-    }
-
-    public static boolean isLast(int i, int j){
-        int cnt = 0;
-        for(int x=0; x<r; x++){
-            for(int y=0; y<c; y++){
-                if(map[x][y] == 1) cnt++;
-            }
-        }
-
-        if(cnt > 1) return false;
-        return true;
     }
 }
