@@ -60,6 +60,7 @@ public class Main {
 
                 if(map[nm/10][nm%10] > 0){
                     queue.offer(new Move(map[nm/10][nm%10], m.dist+1));
+                    visited[nm/10][nm%10] = true;
                 }else{
                     queue.offer(new Move(nm, m.dist+1));
                     visited[nm/10][nm%10] = true;
