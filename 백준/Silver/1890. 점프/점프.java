@@ -19,7 +19,8 @@ public class Main {
         }
 
         long[][] d = new long[N][N];
-        d[0][0] = 1;
+        d[map[0][0]][0] = 1;
+        d[0][map[0][0]] = 1;
         for(int i=0; i<N; i++){
             for(int j=0; j<N; j++){
                 if(i == N-1 && j == N-1) continue;
